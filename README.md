@@ -37,9 +37,10 @@ Para executar a Web API:
 ```
 
 ## Linguagens & Ferramentas utilizadas: 
-    C# Lambda
-    C# Linq
+    	C# Lambda
+    	C# Linq
 	.NET Core
+	EF CORE
 	ASP.NET Core	
 	Bootstrap
 	jQuery
