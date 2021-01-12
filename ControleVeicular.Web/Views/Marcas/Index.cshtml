@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ControleVeicular.Web.ViewModels.MarcaViewModel>
+
+@{
+    ViewBag.Title = "Listagem de Marcas";
+}
+
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="card card0 border-0">
+        <div class="row d-flex">
+
+            <div class="col-lg-12">
+
+                <div class="card2 card border-0 px-4 py-5">
+                    <div class="row mb-3 px-3">
+                        <a class="btn btn-outline-info text-center espaco-botao" asp-area="" asp-controller="Marcas" asp-action="Create">Adicionar</a>
+                    </div>
+
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                                <td align="right">
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.MarcaId }, new { @class = "btn btn-info" })
+                                    <button onclick='deletar(this, @item.MarcaId);' class='btn btn-danger'>Excluir</button>
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function deletar(btn, id) {
+        swal({
+            title: 'Você tem certeza?',
+            text: 'A exclusão não poderá ser desfeita!',
+            icon: "warning",
+            buttons: [
+                "Não, manter o registro.",
+                'Sim, continuar!'
+            ],
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+
+                $.ajax({
+                    url: "Marcas/Delete",
+                    data:
+                    {
+                        "id": id
+                    },
+                    type: "POST",
+                    success: function (response) {
+                        swal({
+                            title: 'Excluído!',
+                            text: 'A Marca foi excluído com sucesso!',
+                            icon: 'success'
+                        });
+                        var row = btn.parentNode.parentNode;
+                        row.parentNode.removeChild(row);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+
+            } else {
+                swal("Oops!", "Operação Cancelada!", "error");
+            }
+        })
+    }
+</script>

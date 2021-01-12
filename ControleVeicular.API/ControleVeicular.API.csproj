@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\desen08\source\repos\ControleVeicular\ControleVeicular.API\ControleVeicular.API.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ControleVeicular.Application\ControleVeicular.Application.csproj" />
+    <ProjectReference Include="..\ControleVeicular.Infra.Data\ControleVeicular.Infra.Data.csproj" />
+  </ItemGroup>
+
+
+</Project>

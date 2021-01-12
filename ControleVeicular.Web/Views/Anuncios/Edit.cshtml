@@ -1,0 +1,128 @@
+﻿@model ControleVeicular.Web.ViewModels.AnuncioViewModel
+
+@{
+    ViewBag.Title = "Editar Modelo";
+}
+
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="card card0 border-0">
+            <div class="row d-flex">
+
+                <div class="col-lg-12">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.AnuncioId)
+                    @Html.Hidden("MarcaIdAux", Model.MarcaId)
+                    @Html.Hidden("ModeloIdAux", Model.ModeloId)
+
+                    <div class="card2 card border-0 px-4 py-5">
+                        <div class="row px-3">
+                            @Html.LabelFor(model => model.ModeloId, new { @class = "mb-1" })
+                            <select asp-for="ModeloId" class="form-control"></select>
+                            @Html.ValidationMessageFor(model => model.ModeloId, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row px-3">
+                            @Html.LabelFor(model => model.MarcaId, new { @class = "mb-1" })
+                            <select asp-for="MarcaId" class="form-control"></select>
+                            @Html.ValidationMessageFor(model => model.MarcaId, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row px-3">
+                            @Html.LabelFor(model => model.Ano, new { @class = "mb-1" })
+                            @Html.EditorFor(model => model.Ano, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Ano, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row px-3">
+                            @Html.LabelFor(model => model.ValorCompra, new { @class = "mb-1" })
+                            @Html.EditorFor(model => model.ValorCompra, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ValorCompra, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row px-3">
+                            @Html.LabelFor(model => model.ValorVenda, new { @class = "mb-1" })
+                            @Html.EditorFor(model => model.ValorVenda, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ValorVenda, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row px-3">
+                            @Html.LabelFor(model => model.Cor, new { @class = "mb-1" })
+                            @Html.EditorFor(model => model.Cor, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Cor, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row px-3">
+                            @Html.LabelFor(model => model.TipoCombustivel, new { @class = "mb-1" })
+                            @Html.EditorFor(model => model.TipoCombustivel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TipoCombustivel, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row px-3">
+                            @Html.LabelFor(model => model.DataVenda, new { @class = "mb-1" })
+                            @Html.EditorFor(model => model.DataVenda, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DataVenda, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="row mb-3 px-3">
+                            <a class="btn btn-outline-info text-center espaco-botao" asp-area="" asp-controller="Anuncios" asp-action="Index">Voltar</a>
+                            <button type="submit" class="btn btn-blue text-center">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        listarMarcas();
+        listarModelos();
+
+    });
+
+    function listarMarcas() {
+        return $.ajax({
+            url: "/Marcas/Listar/",
+            type: "GET",
+            success: function (response) {
+                console.log(response)
+                $.each(response, function (key, value) {
+                    var selected = "";
+                    if (value.marcaId == $("#MarcaIdAux").val()) {
+                        selected = "selected";
+                    }
+                    $("#MarcaId").append('<option ' + selected + ' value=' + value.marcaId + '>' + value.nome + '</option>');
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+
+            }
+        });
+    }
+
+    function listarModelos() {
+        return $.ajax({
+            url: "/Modelos/Listar/",
+            type: "GET",
+            success: function (response) {
+                $.each(response, function (key, value) {
+                    var selected = "";
+                    if (value.modeloId == $("#ModeloIdAux").val()) {
+                        selected = "selected";
+                    }
+                    $("#ModeloId").append('<option ' + selected + ' value=' + value.modeloId + '>' + value.nome + '</option>');
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+
+            }
+        });
+    }
+</script>

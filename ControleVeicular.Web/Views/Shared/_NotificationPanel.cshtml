@@ -1,0 +1,13 @@
+﻿@if (TempData["notification"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            swal(@Html.Raw(TempData["notification"])
+            );
+
+        });
+
+    </script>
+
+
+}
