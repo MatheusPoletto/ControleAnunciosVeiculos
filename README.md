@@ -46,6 +46,7 @@ Para executar a Web API:
 	jQuery
 	SweetAlert
 	Swagger
+	AutoMapper
 	
 ## Abordagens utilizadas:
 	DDD
